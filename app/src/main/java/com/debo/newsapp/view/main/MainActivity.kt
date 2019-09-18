@@ -56,7 +56,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
                             populateRecyclerView(it.data?.toMutableList() ?: mutableListOf())
                         }
                         ResourceState.ERROR -> {
-
+                            snackbarMessage("Error Loading Data From Network")
                         }
                     }
                 }

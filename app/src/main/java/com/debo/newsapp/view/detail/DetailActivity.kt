@@ -9,7 +9,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.debo.newsapp.R
 import com.debo.newsapp.utils.convertDate
+import com.debo.newsapp.utils.loadImage
 import com.debo.newsapp.utils.observe
+import com.debo.newsapp.utils.snackbarMessage
 import com.debo.newsapp.view.base.BaseActivity
 import com.debo.newsapp.view.model.ProjectView
 import com.debo.newsapp.view.state.ResourceState
@@ -69,7 +71,6 @@ class DetailActivity : BaseActivity<DetailViewModel>() {
                     it?.let {
                         when (it.status) {
                             ResourceState.LOADING -> {
-
                             }
                             ResourceState.SUCCESS -> {
                                 it.data?.let {
@@ -77,7 +78,7 @@ class DetailActivity : BaseActivity<DetailViewModel>() {
                                 }
                             }
                             ResourceState.ERROR -> {
-
+                                snackbarMessage("Error Loading Data From Database")
                             }
                         }
                     }
@@ -89,16 +90,7 @@ class DetailActivity : BaseActivity<DetailViewModel>() {
     private fun populateUi(data: ProjectView) {
         txvContent.text = data.description
         txvDate.text = convertDate(data.publishedAt)
-
-        Glide.with(this)
-            .load(data.urlToImage)
-            .apply(
-                RequestOptions()
-                    .diskCacheStrategy(
-                        DiskCacheStrategy.ALL
-                    )
-            ).into(imvBackGround)
-
+        loadImage(imvBackGround, data.urlToImage)
         txvTitle.text = data.title
         txvNewsSource.text = data.source
     }

@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.debo.newsapp.R
 import com.debo.newsapp.utils.convertDate
+import com.debo.newsapp.utils.loadImage
 import com.debo.newsapp.view.detail.DetailActivity
 import com.debo.newsapp.view.model.ProjectView
 
@@ -61,14 +62,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             txvDate.text = convertDate(view.publishedAt)
             txvTitle.text = view.title
 
-            Glide.with(imvNews.context)
-                .load(view.urlToImage)
-                .apply(
-                    RequestOptions()
-                        .diskCacheStrategy(
-                            DiskCacheStrategy.ALL
-                        )
-                ).into(imvNews)
+            loadImage(imvNews, view.urlToImage)
 
             itemView.setOnClickListener {
                 parent.context.startActivity(DetailActivity.newIntent(parent.context, view.title))

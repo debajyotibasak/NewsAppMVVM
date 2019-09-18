@@ -1,12 +1,21 @@
 package com.debo.newsapp.utils
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.debo.newsapp.NewsApplication
+import com.debo.newsapp.R
+import com.google.android.material.snackbar.Snackbar
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,4 +54,38 @@ fun View.makeVisible() {
 
 fun View.makeGone() {
     visibility = View.GONE
+}
+
+fun loadImage(view: ImageView, url: String) {
+    Glide.with(view.context)
+        .load(url)
+        .apply(
+            RequestOptions()
+                .diskCacheStrategy(
+                    DiskCacheStrategy.ALL
+                )
+        ).into(view)
+}
+
+fun Activity.showOnUiThread(init: Activity.() -> Unit): Activity {
+    if (!isFinishing || !isDestroyed) {
+        runOnUiThread {
+            init()
+        }
+    }
+    return this
+}
+
+fun Activity.snackbarMessage(message: String) {
+    try {
+        showOnUiThread {
+            val snackBar =
+                Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+            val textView = snackBar.view.findViewById(R.id.snackbar_text) as TextView
+            val robotoTypeface = ResourcesCompat.getFont(this, R.font.roboto_slab_regular)
+            textView.typeface = robotoTypeface
+            snackBar.show()
+        }
+    } catch (ex: Exception) {
+    }
 }
