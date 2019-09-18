@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="headlines">Headlines</string>
+    <string name="demo_item_title">Demo Title</string>
+    <string name="demo_news_source">News.com</string>
+    <string name="demo_news_date">2019–07–03</string>
+    <string name="demo_detail_title">Detail Page Title</string>
+    <string name="demo_detail_news_source">News.com</string>
+    <string name="demo_detail_date">2019–07–03</string>
+    <string name="demo_detail_content">This is the news content</string>
+</resources>
