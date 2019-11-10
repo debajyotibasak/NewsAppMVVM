@@ -40,8 +40,4 @@ class NewsApplication : Application(), HasActivityInjector {
             .build()
             .inject(this)
     }
-
-
-
-
 }

@@ -20,12 +20,6 @@ class AppModule {
         }
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideUserDao(db: NewsDb): NewsDao {
-//        return db.newsDao()
-//    }
-
     @Singleton
     @Provides
     fun provideContext(application: NewsApplication): Context {

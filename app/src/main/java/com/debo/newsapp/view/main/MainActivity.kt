@@ -71,7 +71,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     override fun onStart() {
         super.onStart()
-
         observeData()
     }
 }
